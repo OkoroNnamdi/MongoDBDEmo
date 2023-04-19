@@ -8,10 +8,10 @@ namespace MongoDbDemo.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CategoryController : ControllerBase
+    public class ProductController : ControllerBase
     {
-        private readonly ICategoryServices _services;
-        public CategoryController(ICategoryServices services)
+        private readonly IProductServices _services;
+        public ProductController(IProductServices services)
         {
             _services = services;
         }
@@ -41,22 +41,24 @@ namespace MongoDbDemo.Controllers
 
         // POST api/Category
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] Category category)
+        public async Task<IActionResult> Create([FromBody] Product product)
         {
-            await   _services.Create(category);
+            product.CategoryName = null;
+            await   _services.Create(product);
             return Ok("Created Sucessfully");
         }
 
         // PUT api/Category/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(string  id, [FromBody] Category newcategory)
+        public async Task<IActionResult> Put(string  id, [FromBody] Product newproduct)
         {
-            var category = await _services.GetById(id);
-            if (category == null)
+            newproduct.CategoryName = null;
+            var product = await _services.GetById(id);
+            if (product == null)
             {
                 return NotFound();
             }
-            await _services.Update(id,  category);
+            await _services.Update(id,  product );
             return Ok("Updated Sucessfully");
         }
 

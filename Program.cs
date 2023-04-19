@@ -13,6 +13,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.Configure<DatabaseSettings>(
     builder.Configuration.GetSection("myDb"));
 builder.Services.AddScoped <ICategoryServices , CategoryServices>();
+builder.Services.AddScoped <IProductServices , ProductServices>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
